@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PhotoSift</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%233b6ef5'/><circle cx='16' cy='16' r='7' fill='none' stroke='white' stroke-width='3'/><path d='M21 21l5 5' stroke='white' stroke-width='3' stroke-linecap='round'/></svg>">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar">
+    <div class="brand"><span class="logo"></span>PhotoSift</div>
+
+    <nav class="section">
+      <a href="#/" data-nav="all">All photos</a>
+      <a href="#/search?q=is%3Afavorite" data-nav="fav">Favorites</a>
+      <a href="#/timeline" data-nav="timeline">Timeline</a>
+      <a href="#/places" data-nav="places">Places</a>
+      <a href="#/duplicates" data-nav="dups">Duplicates</a>
+      <a href="#/folders" data-nav="folders">Folders</a>
+    </nav>
+
+    <div class="section">
+      <div class="section-head">Albums <button class="icon-btn" id="newAlbumBtn" title="New album">+</button></div>
+      <div id="albumList" class="list"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">Tags</div>
+      <div id="tagCloud" class="tag-cloud"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">Sources
+        <span>
+          <button class="icon-btn" id="rescanBtn" title="Rescan all sources">&#8635;</button>
+          <button class="icon-btn" id="addSourceBtn" title="Add a source">+</button>
+        </span>
+      </div>
+      <div id="sourceList" class="list"></div>
+    </div>
+
+    <div id="jobBox"></div>
+  </aside>
+
+  <main>
+    <header id="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" title="Menu">&#9776;</button>
+      <form id="searchForm" autocomplete="off">
+        <input id="q" type="search" placeholder="Search: “dog on the beach”, tag:sunset after:2023, camera:iphone …">
+        <button type="button" class="icon-btn" id="helpBtn" title="Search tips">?</button>
+      </form>
+      <select id="sort" title="Sort">
+        <option value="auto">Best match / newest</option>
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+        <option value="name">Name</option>
+        <option value="size">Largest files</option>
+      </select>
+      <input id="zoom" type="range" min="120" max="360" value="200" title="Thumbnail size">
+    </header>
+
+    <div id="selbar" hidden>
+      <span id="selCount"></span>
+      <button data-bulk="favorite">&#9733; Favorite</button>
+      <button data-bulk="unfavorite">Unfavorite</button>
+      <button data-bulk="tag">Add tag</button>
+      <button data-bulk="album">Add to album</button>
+      <button data-bulk="unalbum" id="unalbumBtn" hidden>Remove from album</button>
+      <button data-bulk="download">Download</button>
+      <button data-bulk="export">Copy to folder…</button>
+      <button data-bulk="selectall">Select all</button>
+      <button data-bulk="clear">Clear</button>
+    </div>
+
+    <div id="viewHead"></div>
+    <div id="view"></div>
+  </main>
+</div>
+
+<div id="lightbox" hidden>
+  <div class="lb-stage">
+    <button class="lb-nav prev" id="lbPrev" title="Previous (←)">&#8249;</button>
+    <img id="lbImg" alt="">
+    <button class="lb-nav next" id="lbNext" title="Next (→)">&#8250;</button>
+    <button class="lb-close" id="lbClose" title="Close (Esc)">&times;</button>
+  </div>
+  <aside class="lb-info" id="lbInfo"></aside>
+</div>
+
+<dialog id="dlg"><form method="dialog" id="dlgForm"></form></dialog>
+<div id="toast" hidden></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
