@@ -30,3 +30,7 @@ packages = ["photosift", "photosift.sources"]
 
 [tool.setuptools.package-data]
 photosift = ["static/*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
